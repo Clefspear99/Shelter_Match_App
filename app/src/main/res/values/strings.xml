@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Shelter Match</string>
+    <string name="title_fav">Favorites</string>
+    <string name="title_browse">Browse</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="new_notification">Add New Notification</string>
+    <string name="filter_search">Filter</string>
+    <string name="type">Animal Type</string>
+    <string name="breed">Breed</string>
+    <string name="sex">Sex</string>
+    <string name="apply">Apply</string>
+
+
+    <string-array name="breed_array">
+        <item>Boxer</item>
+        <item>Beagle</item>
+        <item>Hound</item>
+        <item>Doggo</item>
+        <item>Doggo</item>
+        <item>Doggo</item>
+        <item>Doggo</item>
+        <item>Doggo</item>
+        <item>Doggo</item>
+        <item>Doggo</item>
+    </string-array>
+
+    <string-array name="sex_array">
+        <item>Both</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="age_array">
+        <item>Young</item>
+        <item>Medium</item>
+        <item>Old</item>
+    </string-array>
+
+    <string-array name="type_array">
+        <item>Both</item>
+        <item>Dog</item>
+        <item>Cat</item>
+    </string-array>
+
+    <string-array name="notify_search_array">
+        <item>Search!</item>
+        <item>Notify Me!</item>
+        <item>Notify Me AND Search!</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

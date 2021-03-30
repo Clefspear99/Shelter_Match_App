@@ -1,0 +1,3 @@
+rootProject.name='Shelter Match'
+include ':app'
+

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_fav">
+
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="lsj.softwareeng.sheltermatch.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_browse"
+        android:name="lsj.softwareeng.sheltermatch.ui.browse.BrowseFragment"
+        android:label="@string/title_browse"
+        tools:layout="@layout/fragment_browse" />
+
+    <fragment
+        android:id="@+id/navigation_fav"
+        android:name="lsj.softwareeng.sheltermatch.ui.fav.FavFragment"
+        android:label="@string/title_fav"
+        tools:layout="@layout/fragment_fav" />
+
+
+
+</navigation>

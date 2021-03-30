@@ -1,0 +1,7 @@
+package lsj.softwareeng.sheltermatch;
+
+import androidx.lifecycle.ViewModel;
+
+public class SearchViewModel extends ViewModel {
+    // TODO: Implement the ViewModel
+}
