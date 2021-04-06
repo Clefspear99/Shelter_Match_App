@@ -45,7 +45,7 @@ public class BrowseFragment extends Fragment {
     private List<PetCardFrag> petCardFragmentList;
     private List<FragmentContainerView> petCardFragmentContainerList;
     
-    private int petCardHeight=-1, lastSeen=0, loadNewCount=1, initialLoadCount=10;
+    private int petCardHeight=-1, lastSeen=0, loadNewCount=1, initialLoadCount=30;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,

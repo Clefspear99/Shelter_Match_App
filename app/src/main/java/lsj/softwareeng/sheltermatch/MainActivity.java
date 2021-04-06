@@ -105,8 +105,8 @@ public class MainActivity extends AppCompatActivity {
         active = search;
     }
 
-    public void newPetInfo(PetObject pet, ArrayList<Bitmap> arrBM){
-        ((PetInfoFragment) petInfo).setupForPet(pet, arrBM);
+    public void newPetInfo(PetObject pet){
+        ((PetInfoFragment) petInfo).setupForPet(pet);
         fragManager.beginTransaction().hide(active).show(petInfo).commit();
         active = petInfo;
     }

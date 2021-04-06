@@ -43,7 +43,7 @@
         <item>Dog</item>
         <item>Cat</item>
     </string-array>
-    
+
     <string-array name="notify_search_array">
         <item>Search!</item>
         <item>Notify Me!</item>

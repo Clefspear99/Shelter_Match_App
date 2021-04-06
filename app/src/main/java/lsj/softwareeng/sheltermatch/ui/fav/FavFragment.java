@@ -46,7 +46,7 @@ public class FavFragment extends Fragment {
 
     private MainActivity ma;
 
-    private int petCardHeight=-1, lastSeen=0, loadNewCount =1, initialLoadCount=10;
+    private int petCardHeight=-1, lastSeen=0, loadNewCount =1, initialLoadCount=20;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class FavFragment extends Fragment {
         petCardFragmentList = new ArrayList<>();
         petCardFragmentContainerList = new ArrayList<FragmentContainerView>();
 
-        petsToShow=PetObject.genPets(100);
+        petsToShow=PetObject.genPets(5);
 
         addPets(initialLoadCount);
         ScrollView sView = root.findViewById(R.id.fav_scroll_view);

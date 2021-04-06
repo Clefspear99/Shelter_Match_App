@@ -1,6 +1,8 @@
 package lsj.softwareeng.sheltermatch;
 
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 
 //Concrete PetObject Builder class
@@ -21,7 +23,7 @@ class PetObjectBuilder{
     String timeStampBuilder="";
     boolean favBuilder=false;
 
-    static int genID=-1;
+    static int genID=-2;
 
 
     public PetObjectBuilder Id(int id) {
@@ -112,6 +114,10 @@ class PetObjectBuilder{
     public PetObject build() {
         if(imgURLsBuilder==null)
             imgURLsBuilder=new ArrayList<>();
+        if(idBuilder==-1){
+            idBuilder=genID;
+            genID--;
+        }
         return new PetObject(idBuilder, nameBuilder, typeBuilder, sexBuilder, ageBuilder, breedBuilder, imgURLsBuilder, cityBuilder, stateBuilder, countryBuilder, zipCodeBuilder, locationLatBuilder, locationLongBuilder, timeStampBuilder, favBuilder);
     }
 }
@@ -126,6 +132,7 @@ int sex;
 String age;
 String breed;
 ArrayList<String> imgURLs;
+ArrayList<Bitmap> images;
 String city;
 String state;
 String country;
@@ -134,6 +141,7 @@ double locationLat;
 double locationLounge;
 String timeStamp;
 Boolean fav;
+boolean allImagesLoaded=false;
 
 
 
@@ -154,6 +162,7 @@ Boolean fav;
         this.locationLounge = locationLounge;
         this.timeStamp=timeStamp;
         this.fav=fav;
+        this.images=new ArrayList<>();
     }
 
     public int getId() {
@@ -213,6 +222,13 @@ Boolean fav;
         this.imgURLs = imgURLs;
     }
 
+    public ArrayList<Bitmap> getImages() {
+        return images;
+    }
+
+    public void setImages(ArrayList<Bitmap> images) {
+        this.images = images;
+    }
 
     public String getCity() {
         return city;
@@ -285,7 +301,7 @@ Boolean fav;
         PetObject tempPet;
 
         for(int i =0; i<count; i++){
-            tempPet=new PetObjectBuilder().Id(55).Name("Charlie").Type("Dog").Sex(1).Age("Young")
+            tempPet=new PetObjectBuilder().Name("Charlie").Type("Dog").Sex(1).Age("Young")
                     .Breed("HotDog").City("Whitewater").State("WI").Country("US").ZipCode(53190).TimeStamp("2021-03-31 18:56:12").addImageURL("https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/50329280/4/?bust=1611963715").addImageURL("https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/50329280/1/?bust=1611233423").addImageURL("https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/50329280/3/?bust=1611233547").build();
             pets.add(tempPet);
         }
