@@ -73,7 +73,7 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 searchFrag.setNotifySearchSpinnerPos(1);
-                ma.newSearch(view);
+                ma.newSearch();
             }
         });
 

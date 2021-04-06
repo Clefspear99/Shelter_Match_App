@@ -1,10 +1,14 @@
 package lsj.softwareeng.sheltermatch;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +25,11 @@ public class MainActivity extends AppCompatActivity {
     final Fragment favs = new FavFragment();
     final Fragment notifications = new NotificationsFragment();
     final Fragment search = SearchFilterFragment.newInstance();
+    final Fragment petInfo= new PetInfoFragment();
     final FragmentManager fragManager = getSupportFragmentManager();
     Fragment active = browse;
+
+    static double logicalDensity=0;
 
     private BottomNavigationView.OnNavigationItemSelectedListener bottomNavSelectedListner =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -60,18 +67,24 @@ public class MainActivity extends AppCompatActivity {
 
         fragManager.beginTransaction().add(R.id.nav_host_fragment, notifications, "notifications").hide(notifications).commit();
         fragManager.beginTransaction().add(R.id.nav_host_fragment, favs, "favs").hide(favs).commit();
+        fragManager.beginTransaction().add(R.id.nav_host_fragment, petInfo, "petInfo").hide(petInfo).commit();
         fragManager.beginTransaction().add(R.id.nav_host_fragment, search, "search").hide(search).commit();
         fragManager.beginTransaction().add(R.id.nav_host_fragment, browse, "browse").commit();
 
 
 
         ((BrowseFragment) browse).setMA(this);
+        ((FavFragment) favs).setMA(this);
         ((NotificationsFragment) notifications).setMA(this);
         ((SearchFilterFragment) search).setMA(this);
 
         ((BrowseFragment) browse).setSearchFrag((SearchFilterFragment) search);
         ((NotificationsFragment) notifications).setSearchFrag((SearchFilterFragment) search);
 
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        this.logicalDensity = metrics.density;
 
 
 
@@ -87,10 +100,19 @@ public class MainActivity extends AppCompatActivity {
         active = notifications;
     }
 
-    public void newSearch(View view) {
+    public void newSearch() {
         fragManager.beginTransaction().hide(active).show(search).commit();
         active = search;
     }
 
+    public void newPetInfo(PetObject pet, ArrayList<Bitmap> arrBM){
+        ((PetInfoFragment) petInfo).setupForPet(pet, arrBM);
+        fragManager.beginTransaction().hide(active).show(petInfo).commit();
+        active = petInfo;
+    }
+
+    public static int dpToPixel(int in){
+        return (int) Math.ceil(in * logicalDensity);
+    }
 
 }

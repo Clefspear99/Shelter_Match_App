@@ -11,6 +11,8 @@
     <string name="apply">Apply</string>
 
 
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string-array name="breed_array">
         <item>Boxer</item>
         <item>Beagle</item>
@@ -41,14 +43,11 @@
         <item>Dog</item>
         <item>Cat</item>
     </string-array>
-
+    
     <string-array name="notify_search_array">
         <item>Search!</item>
         <item>Notify Me!</item>
         <item>Notify Me AND Search!</item>
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
