@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
         fragManager.beginTransaction().add(R.id.nav_host_fragment, browse, "browse").commit();
 
 
-
         ((BrowseFragment) browse).setMA(this);
         ((FavFragment) favs).setMA(this);
         ((NotificationsFragment) notifications).setMA(this);
@@ -111,8 +110,19 @@ public class MainActivity extends AppCompatActivity {
         active = petInfo;
     }
 
+
+    public FavFragment getFavFrag(){
+        return (FavFragment) favs;
+    }
+
+
     public static int dpToPixel(int in){
         return (int) Math.ceil(in * logicalDensity);
     }
 
 }
+/*
+1. Got the pictures on more info screen displaying right
+2. tweaked intnert / downloading images
+
+*/

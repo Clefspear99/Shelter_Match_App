@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 
 import java.util.ArrayList;
 
+import lsj.softwareeng.sheltermatch.ui.fav.FavFragment;
+
 //Concrete PetObject Builder class
 class PetObjectBuilder{
     int idBuilder=-1;
@@ -143,7 +145,34 @@ String timeStamp;
 Boolean fav;
 boolean allImagesLoaded=false;
 
+PetCardFrag petCardFragBrowse;
+PetCardFrag petCardFragFav;
 
+
+
+    public void addRemoveFromFav(MainActivity ma){
+
+        FavFragment favFragment = ma.getFavFrag();
+        petCardFragBrowse.changeFavColor();
+        if(this.fav){
+            if(petCardFragFav==null) {
+                petCardFragFav = new PetCardFrag(this, ma);
+                favFragment.addToFavs(petCardFragFav);
+            }
+            else{
+                favFragment.addToFavsExisting(petCardFragFav);
+
+            }
+            //I don't need the following command. If I call it then it tires to change the the color
+            //of a button that doesn't exist yet. Instead the color will be set when the button does exist
+            //petCardFragFav.changeFavColor();
+
+
+        }
+        else{
+            favFragment.removeFromFavs(petCardFragFav);
+        }
+    }
 
 
     public PetObject(int id, String name, String type, int sex, String age, String breed, ArrayList<String> imgURLs, String city, String state, String country, int zipCode, double locationLat, double locationLounge, String timeStamp, boolean fav) {
@@ -295,6 +324,21 @@ boolean allImagesLoaded=false;
         this.fav = fav;
     }
 
+    public PetCardFrag getPetCardFragBrowse() {
+        return petCardFragBrowse;
+    }
+
+    public void setPetCardFragBrowse(PetCardFrag petCardFragBrowse) {
+        this.petCardFragBrowse = petCardFragBrowse;
+    }
+
+    public PetCardFrag getPetCardFragFav() {
+        return petCardFragFav;
+    }
+
+    public void setPetCardFragFav(PetCardFrag petCardFragFav) {
+        this.petCardFragFav = petCardFragFav;
+    }
 
     public static ArrayList<PetObject> genPets(int count){
         ArrayList<PetObject> pets = new ArrayList<>();

@@ -25,6 +25,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import lsj.softwareeng.sheltermatch.MainActivity;
 import lsj.softwareeng.sheltermatch.PetCardFrag;
+import lsj.softwareeng.sheltermatch.PetInfoFragment;
 import lsj.softwareeng.sheltermatch.PetObject;
 import lsj.softwareeng.sheltermatch.R;
 
@@ -46,7 +47,7 @@ public class FavFragment extends Fragment {
 
     private MainActivity ma;
 
-    private int petCardHeight=-1, lastSeen=0, loadNewCount =1, initialLoadCount=20;
+    private int petCardHeight=-1, lastSeen=0, loadNewCount =0, initialLoadCount=0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -114,6 +115,46 @@ public class FavFragment extends Fragment {
         }
         trans.commit();
     }
+
+
+
+    public void removeFromFavs(PetCardFrag petCardFragment){
+        petsToShow.remove(petCardFragment.getPetObject());
+        petCardFragmentList.remove(petCardFragment);
+        petCardFragmentContainerList.remove(petCardFragment.getContainer());
+
+        fragLinearLayout.removeView(petCardFragment.getContainer());
+    }
+
+    public void addPetCardFragmentContainer(PetCardFrag petCardFrag){
+
+
+        petsToShow.add(petCardFrag.getPetObject());
+        petCardFragmentList.add(petCardFrag);
+        petCardFragmentContainerList.add(petCardFrag.getContainer());
+        fragLinearLayout.addView(petCardFrag.getContainer());
+
+
+    }
+
+
+
+    public void addToFavs(PetCardFrag petCardFragment){
+        FragmentTransaction  trans=context.getSupportFragmentManager().beginTransaction();
+        FragmentContainerView fragContainer= new FragmentContainerView(context);
+        fragContainer.setId(ViewCompat.generateViewId());
+        petCardFragment.setContainer(fragContainer);
+        trans.add(fragContainer.getId(), petCardFragment);
+        trans.commit();
+
+
+        addPetCardFragmentContainer(petCardFragment);
+    }
+
+    public void addToFavsExisting(PetCardFrag petCardFrag){
+        addPetCardFragmentContainer(petCardFrag);
+    }
+
 
     public void setMA(MainActivity ma){
         this.ma = ma;

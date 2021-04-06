@@ -1,5 +1,6 @@
 package lsj.softwareeng.sheltermatch;
 
+import androidx.fragment.app.FragmentContainerView;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.graphics.Bitmap;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import lsj.softwareeng.sheltermatch.ui.fav.FavFragment;
 
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -38,8 +40,10 @@ public class PetCardFrag extends Fragment {
 
     private PetObject petObject;
 
+    public FragmentContainerView container;
 
     private MainActivity ma;
+
 
     //public static PetCardFrag newInstance() {
     //return new PetCardFrag();
@@ -77,8 +81,11 @@ public class PetCardFrag extends Fragment {
         ImageButton imageButton = ((ImageButton) root.findViewById(R.id.petMainImage));
 
         if (petObject.getImgURLs().size() > 0) {
-            //new ImageRetriver(petObject.getImages(), imageButton).execute(petObject.getImgURLs().get(0));
-            new ImageRetriver(petObject.getImages(), imageButton).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, petObject.getImgURLs().get(0));
+            if(petObject.images.size()<1)
+                new ImageRetriver(petObject.getImages(), imageButton).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, petObject.getImgURLs().get(0));
+            else{
+                imageButton.setImageBitmap(petObject.getImages().get(0));
+            }
         }
 
 
@@ -86,6 +93,9 @@ public class PetCardFrag extends Fragment {
 
         ((TextView) root.findViewById(R.id.petName)).setText(petObject.getName());
         ((TextView) root.findViewById(R.id.petCardInfo)).setText(petObject.getType() + "\n" + sex + "\n" + petObject.getCity());
+
+        if(petObject!=null)
+            changeFavColor();
 
         if (totalHeight == -1) {
             root.post(new Runnable() {
@@ -108,6 +118,18 @@ public class PetCardFrag extends Fragment {
             }
         });
 
+        ImageButton favButton = root.findViewById(R.id.pet_card_fav);
+        favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(petObject.getFav()==false)
+                    petObject.setFav(true);
+                else
+                    petObject.setFav(false);
+                petObject.addRemoveFromFav(ma);
+            }
+        });
+
 
         return root;
 
@@ -119,6 +141,15 @@ public class PetCardFrag extends Fragment {
         mViewModel = ViewModelProviders.of(this).get(PetCardViewModel.class);
         // TODO: Use the ViewModel
     }
+
+    public void changeFavColor(){
+        ImageButton button= root.findViewById(R.id.pet_card_fav);
+        if(petObject.getFav())
+            button.setImageResource(R.drawable.ic_fav_red_24dp);
+        else
+            button.setImageResource(R.drawable.ic_fav_black_24dp);
+    }
+
 
 
 
@@ -133,6 +164,14 @@ public class PetCardFrag extends Fragment {
 
     public static int getTotalHeight(){
         return totalHeight;
+    }
+
+    public FragmentContainerView getContainer() {
+        return container;
+    }
+
+    public void setContainer(FragmentContainerView container) {
+        this.container = container;
     }
 }
 

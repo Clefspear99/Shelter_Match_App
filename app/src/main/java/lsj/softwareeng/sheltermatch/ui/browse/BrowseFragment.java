@@ -128,10 +128,12 @@ public class BrowseFragment extends Fragment {
 
 
             petCardFragmentList.add(new PetCardFrag(petsToShow.get(curr+i), ma));
+            petsToShow.get(curr+i).setPetCardFragBrowse(petCardFragmentList.get(curr+i));
 
             petCardFragmentContainerList.add(new FragmentContainerView(context));
             petCardFragmentContainerList.get(curr+i).setId(ViewCompat.generateViewId());
             trans.add(petCardFragmentContainerList.get(curr+i).getId(), petCardFragmentList.get(curr+i));
+            petCardFragmentList.get(curr+i).setContainer(petCardFragmentContainerList.get(curr+i));
             fragLinearLayout.addView(petCardFragmentContainerList.get(curr+i));
         }
         trans.commit();
