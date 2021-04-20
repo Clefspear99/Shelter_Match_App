@@ -27,6 +27,7 @@ import lsj.softwareeng.sheltermatch.PetCardFrag;
 import lsj.softwareeng.sheltermatch.PetObject;
 import lsj.softwareeng.sheltermatch.R;
 import lsj.softwareeng.sheltermatch.SearchFilterFragment;
+import lsj.softwareeng.sheltermatch.apiAccess;
 
 
 public class BrowseFragment extends Fragment {
@@ -39,7 +40,7 @@ public class BrowseFragment extends Fragment {
     private View root;
     private MainActivity ma;
 
-    private ArrayList<PetObject> petsToShow;
+    public ArrayList<PetObject> petsToShow;
 
     private LinearLayout fragLinearLayout;
     private List<PetCardFrag> petCardFragmentList;
@@ -61,11 +62,13 @@ public class BrowseFragment extends Fragment {
         petCardFragmentContainerList = new ArrayList<FragmentContainerView>();
 
 
-        petsToShow=PetObject.genPets(100);
+        //petsToShow=PetObject.genPets(100);
 
-        addPets(initialLoadCount);
+        //addPets(initialLoadCount);
 
-        
+        petsToShow=new ArrayList<>();
+        (new apiAccess()).search(this).execute();
+
         
         ScrollView sView = root.findViewById(R.id.browse_scroll_view);
 

@@ -28,10 +28,7 @@ import lsj.softwareeng.sheltermatch.PetCardFrag;
 import lsj.softwareeng.sheltermatch.PetInfoFragment;
 import lsj.softwareeng.sheltermatch.PetObject;
 import lsj.softwareeng.sheltermatch.R;
-
-
-
-
+import lsj.softwareeng.sheltermatch.apiAccess;
 
 
 public class FavFragment extends Fragment {
@@ -39,7 +36,7 @@ public class FavFragment extends Fragment {
     private FavViewModel favViewModel;
     private FragmentActivity context;
 
-    private ArrayList<PetObject> petsToShow;
+    public ArrayList<PetObject> petsToShow;
 
     private LinearLayout fragLinearLayout;
     private List<PetCardFrag> petCardFragmentList;
@@ -56,14 +53,19 @@ public class FavFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_fav, container, false);
 
 
+
+
         fragLinearLayout = root.findViewById(R.id.fav_linear_layout);
 
         petCardFragmentList = new ArrayList<>();
         petCardFragmentContainerList = new ArrayList<FragmentContainerView>();
+        petsToShow=new ArrayList<>();
+        //(new apiAccess()).getFavs(this, (new Integer[] {66000, 77000, 88000})).execute();
+        //, 342, 531, 523, 765, 234, 532, 643
 
-        petsToShow=PetObject.genPets(5);
+        //petsToShow=PetObject.genPets(5);
 
-        addPets(initialLoadCount);
+        //addPets(initialLoadCount);
         ScrollView sView = root.findViewById(R.id.fav_scroll_view);
 
         sView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {

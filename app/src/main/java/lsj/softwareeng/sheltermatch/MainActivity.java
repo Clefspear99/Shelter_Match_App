@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         navView.setOnNavigationItemSelectedListener(bottomNavSelectedListner);
         navView.setSelectedItemId(R.id.navigation_browse);
 
+        //ArrayList<PetObject> petArrs= new ArrayList<>();
+
+        //new apiAccess().search(petArrs).execute();
 
         fragManager.beginTransaction().add(R.id.nav_host_fragment, notifications, "notifications").hide(notifications).commit();
         fragManager.beginTransaction().add(R.id.nav_host_fragment, favs, "favs").hide(favs).commit();

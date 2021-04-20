@@ -65,18 +65,7 @@ public class PetCardFrag extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.pet_card_fragment, container, false);
 
-        String sex = "Error!";
-        switch (petObject.getSex()) {
-            case 0:
-                sex = "unknown";
-                break;
-            case 1:
-                sex = "Male";
-                break;
-            case 2:
-                sex = "Female";
-                break;
-        }
+
 
         ImageButton imageButton = ((ImageButton) root.findViewById(R.id.petMainImage));
 
@@ -92,7 +81,7 @@ public class PetCardFrag extends Fragment {
 
 
         ((TextView) root.findViewById(R.id.petName)).setText(petObject.getName());
-        ((TextView) root.findViewById(R.id.petCardInfo)).setText(petObject.getType() + "\n" + sex + "\n" + petObject.getCity());
+        ((TextView) root.findViewById(R.id.petCardInfo)).setText(petObject.getType() + "\n" + petObject.getSex() + "\n" + petObject.getCity());
 
         if(petObject!=null)
             changeFavColor();

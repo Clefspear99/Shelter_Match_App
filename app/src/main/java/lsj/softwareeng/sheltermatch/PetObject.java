@@ -3,7 +3,12 @@ package lsj.softwareeng.sheltermatch;
 
 import android.graphics.Bitmap;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.annotations.Expose;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import lsj.softwareeng.sheltermatch.ui.fav.FavFragment;
 
@@ -12,21 +17,148 @@ class PetObjectBuilder{
     int idBuilder=-1;
     String nameBuilder="Unnamed";
     String typeBuilder="unknown";
-    int sexBuilder=0;
+    String sexBuilder="unknown";
     String ageBuilder="unknown";
-    String breedBuilder="unknown";
+    String[] breedBuilder=new String[]{"unknown"};
     ArrayList<String> imgURLsBuilder;
     String cityBuilder="unknown";
     String stateBuilder="unknown";
     String countryBuilder="unknown";
-    int zipCodeBuilder=00000;
+    int postalCodeBuilder=00000;
     double locationLatBuilder=0;
-    double locationLongBuilder=0;
+    double locationLonBuilder=0;
     String timeStampBuilder="";
     boolean favBuilder=false;
 
     static int genID=-2;
 
+    public int getIdBuilder() {
+        return idBuilder;
+    }
+
+    public void setIdBuilder(int idBuilder) {
+        this.idBuilder = idBuilder;
+    }
+
+    public String getNameBuilder() {
+        return nameBuilder;
+    }
+
+    public void setNameBuilder(String nameBuilder) {
+        this.nameBuilder = nameBuilder;
+    }
+
+    public String getTypeBuilder() {
+        return typeBuilder;
+    }
+
+    public void setTypeBuilder(String typeBuilder) {
+        this.typeBuilder = typeBuilder;
+    }
+
+    public String getSexBuilder() {
+        return sexBuilder;
+    }
+
+    public void setSexBuilder(String sexBuilder) {
+        this.sexBuilder = sexBuilder;
+    }
+
+    public String getAgeBuilder() {
+        return ageBuilder;
+    }
+
+    public void setAgeBuilder(String ageBuilder) {
+        this.ageBuilder = ageBuilder;
+    }
+
+    public String[] getBreedBuilder() {
+        return breedBuilder;
+    }
+
+    public void setBreedBuilder(String[] breedBuilder) {
+        this.breedBuilder = breedBuilder;
+    }
+
+    public ArrayList<String> getImgURLsBuilder() {
+        return imgURLsBuilder;
+    }
+
+    public void setImgURLsBuilder(ArrayList<String> imgURLsBuilder) {
+        this.imgURLsBuilder = imgURLsBuilder;
+    }
+
+    public String getCityBuilder() {
+        return cityBuilder;
+    }
+
+    public void setCityBuilder(String cityBuilder) {
+        this.cityBuilder = cityBuilder;
+    }
+
+    public String getStateBuilder() {
+        return stateBuilder;
+    }
+
+    public void setStateBuilder(String stateBuilder) {
+        this.stateBuilder = stateBuilder;
+    }
+
+    public String getCountryBuilder() {
+        return countryBuilder;
+    }
+
+    public void setCountryBuilder(String countryBuilder) {
+        this.countryBuilder = countryBuilder;
+    }
+
+    public int getPostalCodeBuilder() {
+        return postalCodeBuilder;
+    }
+
+    public void setPostalCodeBuilder(int postalCodeBuilder) {
+        this.postalCodeBuilder = postalCodeBuilder;
+    }
+
+    public double getLocationLatBuilder() {
+        return locationLatBuilder;
+    }
+
+    public void setLocationLatBuilder(double locationLatBuilder) {
+        this.locationLatBuilder = locationLatBuilder;
+    }
+
+    public double getLocationLonBuilder() {
+        return locationLonBuilder;
+    }
+
+    public void setLocationLonBuilder(double locationLonBuilder) {
+        this.locationLonBuilder = locationLonBuilder;
+    }
+
+    public String getTimeStampBuilder() {
+        return timeStampBuilder;
+    }
+
+    public void setTimeStampBuilder(String timeStampBuilder) {
+        this.timeStampBuilder = timeStampBuilder;
+    }
+
+    public boolean isFavBuilder() {
+        return favBuilder;
+    }
+
+    public void setFavBuilder(boolean favBuilder) {
+        this.favBuilder = favBuilder;
+    }
+
+    public static int getGenID() {
+        return genID;
+    }
+
+    public static void setGenID(int genID) {
+        PetObjectBuilder.genID = genID;
+    }
 
     public PetObjectBuilder Id(int id) {
         this.idBuilder = id;
@@ -44,7 +176,7 @@ class PetObjectBuilder{
     }
 
 
-    public PetObjectBuilder Sex(int sex) {
+    public PetObjectBuilder Sex(String sex) {
         this.sexBuilder = sex;
         return this;
     }
@@ -55,7 +187,7 @@ class PetObjectBuilder{
         return this;
     }
 
-    public PetObjectBuilder Breed(String breed) {
+    public PetObjectBuilder Breed(String[] breed) {
         this.breedBuilder = breed;
         return this;
     }
@@ -80,8 +212,8 @@ class PetObjectBuilder{
         return this;
     }
 
-    public PetObjectBuilder ZipCode(int zipCode) {
-        this.zipCodeBuilder = zipCode;
+    public PetObjectBuilder postalCode(int postalCode) {
+        this.postalCodeBuilder = postalCode;
         return this;
     }
 
@@ -90,12 +222,12 @@ class PetObjectBuilder{
         return this;
     }
 
-    public PetObjectBuilder LocationLong(double locationLong) {
-        this.locationLongBuilder = locationLong;
+    public PetObjectBuilder locationLon(double locationLon) {
+        this.locationLonBuilder = locationLon;
         return this;
     }
 
-    public PetObjectBuilder TimeStamp(String timeStamp) {
+    public PetObjectBuilder timeStamp(String timeStamp) {
         this.timeStampBuilder = timeStamp;
         return this;
     }
@@ -120,33 +252,37 @@ class PetObjectBuilder{
             idBuilder=genID;
             genID--;
         }
-        return new PetObject(idBuilder, nameBuilder, typeBuilder, sexBuilder, ageBuilder, breedBuilder, imgURLsBuilder, cityBuilder, stateBuilder, countryBuilder, zipCodeBuilder, locationLatBuilder, locationLongBuilder, timeStampBuilder, favBuilder);
+        return new PetObject(idBuilder, nameBuilder, typeBuilder, sexBuilder, ageBuilder, breedBuilder, imgURLsBuilder, cityBuilder, stateBuilder, countryBuilder, postalCodeBuilder, locationLatBuilder, locationLonBuilder, timeStampBuilder, favBuilder);
     }
 }
 
 
-
+//TODO Assign pet ID when not given
 public class PetObject {
+
 int id;
 String name;
 String type;
-int sex;
+String sex;
 String age;
-String breed;
-ArrayList<String> imgURLs;
-ArrayList<Bitmap> images;
+String[] breed;
 String city;
 String state;
 String country;
-int zipCode;
+int postalCode;
 double locationLat;
-double locationLounge;
+double locationLon;
 String timeStamp;
-Boolean fav;
+
+
+ArrayList<Bitmap> images;
+ArrayList<String> imgURLs;
+Boolean fav=false;
 boolean allImagesLoaded=false;
 
 PetCardFrag petCardFragBrowse;
 PetCardFrag petCardFragFav;
+
 
 
 
@@ -175,8 +311,9 @@ PetCardFrag petCardFragFav;
     }
 
 
-    public PetObject(int id, String name, String type, int sex, String age, String breed, ArrayList<String> imgURLs, String city, String state, String country, int zipCode, double locationLat, double locationLounge, String timeStamp, boolean fav) {
+    public PetObject(int id, String name, String type, String sex, String age, String[] breed, ArrayList<String> imgURLs, String city, String state, String country, int postalCode, double locationLat, double locationLon, String timeStamp, boolean fav) {
         this.id = id;
+
         this.name = name;
         this.type = type;
         this.sex = sex;
@@ -186,12 +323,16 @@ PetCardFrag petCardFragFav;
         this.city = city;
         this.state = state;
         this.country = country;
-        this.zipCode = zipCode;
+        this.postalCode = postalCode;
         this.locationLat = locationLat;
-        this.locationLounge = locationLounge;
-        this.timeStamp=timeStamp;
-        this.fav=fav;
-        this.images=new ArrayList<>();
+        this.locationLon = locationLon;
+        this.timeStamp = timeStamp;
+        this.fav = fav;
+        this.images = new ArrayList<>();
+    }
+
+    public PetObject(){
+
     }
 
     public int getId() {
@@ -218,11 +359,11 @@ PetCardFrag petCardFragFav;
         this.type = type;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -234,11 +375,11 @@ PetCardFrag petCardFragFav;
         this.age = age;
     }
 
-    public String getBreed() {
+    public String[] getBreed() {
         return breed;
     }
 
-    public void setBreed(String breed) {
+    public void setBreed(String[] breed) {
         this.breed = breed;
     }
 
@@ -283,12 +424,12 @@ PetCardFrag petCardFragFav;
         this.country = country;
     }
 
-    public int getZipCode() {
-        return zipCode;
+    public int getpostalCode() {
+        return postalCode;
     }
 
-    public void setZipCode(int zipCode) {
-        this.zipCode = zipCode;
+    public void setpostalCode(int postalCode) {
+        this.postalCode = postalCode;
     }
 
     public double getLocationLat() {
@@ -299,12 +440,12 @@ PetCardFrag petCardFragFav;
         this.locationLat = locationLat;
     }
 
-    public double getLocationLounge() {
-        return locationLounge;
+    public double getLocationLon() {
+        return locationLon;
     }
 
-    public void setLocationLounge(double locationLounge) {
-        this.locationLounge = locationLounge;
+    public void setLocationLon(double locationLon) {
+        this.locationLon = locationLon;
     }
 
 
@@ -340,17 +481,80 @@ PetCardFrag petCardFragFav;
         this.petCardFragFav = petCardFragFav;
     }
 
+
+
     public static ArrayList<PetObject> genPets(int count){
         ArrayList<PetObject> pets = new ArrayList<>();
         PetObject tempPet;
 
         for(int i =0; i<count; i++){
-            tempPet=new PetObjectBuilder().Name("Charlie").Type("Dog").Sex(1).Age("Young")
-                    .Breed("HotDog").City("Whitewater").State("WI").Country("US").ZipCode(53190).TimeStamp("2021-03-31 18:56:12").addImageURL("https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/50329280/4/?bust=1611963715").addImageURL("https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/50329280/1/?bust=1611233423").addImageURL("https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/50329280/3/?bust=1611233547").build();
+            tempPet=new PetObjectBuilder().Name("Charlie").Type("Dog").Sex("Male").Age("Young")
+                    .Breed(new String[] {"HotDog"}).City("Whitewater").State("WI").Country("US").postalCode(53190).timeStamp("2021-03-31 18:56:12").addImageURL("https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/50329280/4/?bust=1611963715").addImageURL("https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/50329280/1/?bust=1611233423").addImageURL("https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/50329280/3/?bust=1611233547").build();
             pets.add(tempPet);
         }
 
         return pets;
+    }
+
+    public static PetObject getFromJson(JsonObject in){
+        PetObjectBuilder out = new PetObjectBuilder();
+
+
+        if(in.has("id"))
+            out.setIdBuilder(in.get("id").getAsInt());
+
+
+        if(in.has("name"))
+            out.setNameBuilder(in.get("name").getAsString());
+
+        if(in.has("type"))
+            out.setTypeBuilder(in.get("type").getAsString());
+
+        if(in.has("age"))
+            out.setAgeBuilder(in.get("age").getAsString());
+        if(in.has("sex"))
+            out.setSexBuilder(in.get("sex").getAsString());
+        if(in.has("age"))
+            out.setAgeBuilder(in.get("age").getAsString());
+        if(in.has("city"))
+            out.setCityBuilder(in.get("city").getAsString());
+        if(in.has("state"))
+            out.setStateBuilder(in.get("state").getAsString());
+        if(in.has("country"))
+            out.setCountryBuilder(in.get("country").getAsString());
+        if(in.has("timeStamp"))
+            out.setTimeStampBuilder(in.get("timeStamp").getAsString());
+
+        if(in.has("locationLat"))
+            out.setLocationLatBuilder(in.get("locationLat").getAsDouble());
+
+        if(in.has("locationLon"))
+            out.setLocationLonBuilder(in.get("locationLon").getAsDouble());
+
+
+
+        if(in.has("breed")){
+            JsonArray breedJsonArray = in.get("breed").getAsJsonArray();
+            String[] breedArr = new String[breedJsonArray.size()];
+
+            for(int i =0; i<breedJsonArray.size(); i++){
+                breedArr[i] = breedJsonArray.get(i).getAsString();
+            }
+            out.setBreedBuilder(breedArr);
+        }
+
+        if(in.has("photoFileLocation")){
+            JsonArray fileJsonArray = in.get("photoFileLocation").getAsJsonArray();
+            ArrayList<String> urlList = new ArrayList<>();
+            for(int i =0; i<fileJsonArray.size(); i++){
+                urlList.add(fileJsonArray.get(i).getAsString());
+            }
+            out.setImgURLsBuilder(urlList);
+        }
+
+
+
+        return  out.build();
     }
 
 }
