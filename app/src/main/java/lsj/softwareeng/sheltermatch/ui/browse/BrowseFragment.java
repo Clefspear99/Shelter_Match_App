@@ -130,6 +130,7 @@ public class BrowseFragment extends Fragment {
         if(petsToShow.size()-curr<count)
             count=petsToShow.size()-curr;
 
+
         for (int i =0; i<count; i++){
 
 
