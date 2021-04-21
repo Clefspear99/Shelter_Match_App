@@ -24,14 +24,10 @@
 
     <ImageButton
         android:id="@+id/petMainImage"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
 
-        android:adjustViewBounds="true"
-        android:minWidth="350dp"
-        android:minHeight="300dp"
-        android:maxWidth="350dp"
-        android:maxHeight="300dp"
+        android:adjustViewBounds="false"
         android:scaleType="centerCrop"
 
         app:layout_constraintBottom_toTopOf="@id/petCardInfo"

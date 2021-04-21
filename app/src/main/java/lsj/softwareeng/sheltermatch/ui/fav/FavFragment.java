@@ -44,6 +44,9 @@ public class FavFragment extends Fragment {
 
     private MainActivity ma;
 
+    private ArrayList<Integer> favList= new ArrayList<>();
+    private int pageNum=0;
+
     private int petCardHeight=-1, lastSeen=0, loadNewCount =0, initialLoadCount=0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -60,8 +63,11 @@ public class FavFragment extends Fragment {
         petCardFragmentList = new ArrayList<>();
         petCardFragmentContainerList = new ArrayList<FragmentContainerView>();
         petsToShow=new ArrayList<>();
-        //(new apiAccess()).getFavs(this, (new Integer[] {66000, 77000, 88000})).execute();
-        //, 342, 531, 523, 765, 234, 532, 643
+
+        favList= loadFavs();
+
+        (new apiAccess()).getFavs(this, favList, pageNum).execute();
+
 
         //petsToShow=PetObject.genPets(5);
 
@@ -96,6 +102,14 @@ public class FavFragment extends Fragment {
 
 
         return root;
+    }
+
+    private ArrayList<Integer> loadFavs(){
+        ArrayList<Integer> out = new ArrayList<>();
+        for(int i=0; i<100; i++)
+            out.add(66000+i);
+        return out;
+
     }
 
     public void addPets(int count){

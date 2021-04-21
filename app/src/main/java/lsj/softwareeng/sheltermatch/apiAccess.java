@@ -11,6 +11,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 
 
 import org.json.JSONArray;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -42,26 +44,39 @@ public class apiAccess extends AsyncTask<JsonObject, Void, JsonObject> {
 
     private ArrayList<PetObject> petArray;
     private boolean isSearch;
-    private Integer[] favsIn = new Integer[0];
+    private ArrayList<Integer> favsIn;
 
     private FavFragment favFragment;
     private BrowseFragment browseFragment;
 
+    private JsonObject inputJson;
+    private int pageNum=0;
+
     static Hashtable<Integer, PetObject> masterHashTable = new Hashtable<>();
 
 
-    public apiAccess search(BrowseFragment browseFragment) {
+
+    public apiAccess search(BrowseFragment browseFragment, JsonObject inputJson) {
         this.browseFragment = browseFragment;
-        //this.petArray = petArray;
+        this.inputJson = inputJson;
         isSearch = true;
 
         return this;
     }
 
-    public apiAccess getFavs(FavFragment favFragment, Integer[] favsIn) {
+    public apiAccess getFavs(FavFragment favFragment, ArrayList<Integer> favsIn, int pageNum) {
         this.favFragment = favFragment;
         this.favsIn = favsIn;
+        this.pageNum=pageNum;
         isSearch = false;
+        inputJson = new JsonObject();
+        inputJson.add("pageNumber", new JsonPrimitive(Integer.toString(pageNum)));
+
+        JsonArray favArray= new JsonArray();
+        for (Integer curr : favsIn)
+            favArray.add(curr);
+        inputJson.add("id", favArray);
+
         return this;
     }
 
@@ -74,12 +89,7 @@ public class apiAccess extends AsyncTask<JsonObject, Void, JsonObject> {
         BufferedOutputStream out;
         InputStream in;
 
-        JSONObject tempOutJSON = new JSONObject();
-        JSONArray tempOutArray = new JSONArray();
-
         JsonObject outJSON = new JsonObject();
-        JsonArray favArray = new JsonArray();
-        JsonObject inJSON = new JsonObject();
         String message;
 
         String response;
@@ -98,18 +108,7 @@ public class apiAccess extends AsyncTask<JsonObject, Void, JsonObject> {
         try {
 
 
-            if (!isSearch) {
-                for (Integer curr : favsIn)
-                    favArray.add(curr);
-                outJSON.add("id", favArray);
-                message = outJSON.toString();
-            } else {
-                //tempOutJSON.put("type", "Dog");
-                //tempOutJSON.put("sex", "Male");
-                //tempOutJSON.put("age", "Young");
-                //message=outJSON.toString();
-                message = tempOutJSON.toString();
-            }
+            message=inputJson.toString();
 
 
             url = new URL(addr);
@@ -149,11 +148,6 @@ public class apiAccess extends AsyncTask<JsonObject, Void, JsonObject> {
         return outJSON;
     }
 
-    private void readStream(InputStream in) {
-    }
-
-    private void writeStream(OutputStream out) {
-    }
 
     protected void onPostExecute(JsonObject result) {
         JsonArray animals;
@@ -166,6 +160,9 @@ public class apiAccess extends AsyncTask<JsonObject, Void, JsonObject> {
         Gson gson = new Gson();
         JsonElement pulledFromArray;
         PetObject petObject;
+
+        if(isSearch)
+            gson = new Gson();
 
         for (int i = 0; i < length; i++) {
             pulledFromArray = animals.get(i);

@@ -22,6 +22,8 @@ import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.gson.JsonObject;
+
 import lsj.softwareeng.sheltermatch.MainActivity;
 import lsj.softwareeng.sheltermatch.PetCardFrag;
 import lsj.softwareeng.sheltermatch.PetObject;
@@ -67,7 +69,8 @@ public class BrowseFragment extends Fragment {
         //addPets(initialLoadCount);
 
         petsToShow=new ArrayList<>();
-        (new apiAccess()).search(this).execute();
+        JsonObject json=new JsonObject();
+        (new apiAccess()).search(this, json).execute();
 
         
         ScrollView sView = root.findViewById(R.id.browse_scroll_view);
