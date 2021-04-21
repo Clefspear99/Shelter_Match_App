@@ -176,11 +176,11 @@ public class apiAccess extends AsyncTask<JsonObject, Void, JsonObject> {
             if (!isSearch) {
                 petObject.setFav(true);
                 favFragment.petsToShow.add(petObject);
-                favFragment.addPets(1);
+                //favFragment.addPets(1);
             }
             else{
                 browseFragment.petsToShow.add(petObject);
-                browseFragment.addPets(1);
+                //browseFragment.addPets(1);
             }
         }
 
