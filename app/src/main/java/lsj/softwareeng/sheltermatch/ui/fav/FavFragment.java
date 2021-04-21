@@ -88,6 +88,7 @@ public class FavFragment extends Fragment {
 
 
 
+
                 while(true){
                     Log.d("FAV_POS","PetCardHeight "+petCardHeight+" last seen "+lastSeen+" last seen * pet card height "+lastSeen*petCardHeight+" scroll Pos+bottom: "+(scrollPos+sView.getBottom()));
                     if(scrollPos+sView.getBottom()>((lastSeen+1)*petCardHeight)-portionOfPetCard){

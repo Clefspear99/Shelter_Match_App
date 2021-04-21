@@ -134,6 +134,7 @@ public class BrowseFragment extends Fragment {
         for (int i =0; i<count; i++){
 
 
+
             petCardFragmentList.add(new PetCardFrag(petsToShow.get(curr+i), ma));
             petsToShow.get(curr+i).setPetCardFragBrowse(petCardFragmentList.get(curr+i));
 
